@@ -26,12 +26,15 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <projectConfigurable
-                instance="me.vld.SymfonyHelpers.settings.SymfonyHelpersSettingsForm">
+                instance="me.vld.SymfonyHelpers.settings.SymfonyHelpersSettingsForm"
+                id="symfony.helpers.settings">
         </projectConfigurable>
     </extensions>
 
     <application-components>
-        <!-- Add your application components here -->
+        <component>
+            <implementation-class>me.vld.SymfonyHelpers.settings.SymfonyHelpersSettings</implementation-class>
+        </component>
     </application-components>
 
     <project-components>

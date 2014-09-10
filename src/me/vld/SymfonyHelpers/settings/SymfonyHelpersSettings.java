@@ -3,30 +3,24 @@ package me.vld.SymfonyHelpers.settings;
 /**
  * @author AveVlad
  */
+
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.*;
-import com.intellij.openapi.project.Project;
 import com.intellij.util.xmlb.XmlSerializerUtil;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @State(
         name = "SymfonyHelpersSettings",
         storages = {
-                @Storage(id = "default", file = StoragePathMacros.PROJECT_FILE),
-                @Storage(id = "dir", file = StoragePathMacros.PROJECT_CONFIG_DIR + "/symfony2.xml", scheme = StorageScheme.DIRECTORY_BASED)
+                @Storage(file = StoragePathMacros.APP_CONFIG + "/symfony.helpers.settings.xml")
         }
 )
-public class SymfonyHelpersSettings implements PersistentStateComponent<SymfonyHelpersSettings> {
-    public static String DEFAULT_APP_DIRECTORY = "app";
-    public boolean pluginEnabled = false;
+public class SymfonyHelpersSettings implements PersistentStateComponent<SymfonyHelpersSettings>, ApplicationComponent {
+    private boolean enableOpenViews = true;
 
-    protected Project project;
-
-    public static SymfonyHelpersSettings getInstance(Project project) {
-        SymfonyHelpersSettings settings = ServiceManager.getService(project, SymfonyHelpersSettings.class);
-
-        settings.project = project;
-
-        return settings;
+    public static SymfonyHelpersSettings getInstance() {
+        return ApplicationManager.getApplication().getComponent(SymfonyHelpersSettings.class);
     }
 
     @Nullable
@@ -38,5 +32,27 @@ public class SymfonyHelpersSettings implements PersistentStateComponent<SymfonyH
     @Override
     public void loadState(SymfonyHelpersSettings settings) {
         XmlSerializerUtil.copyBean(settings, this);
+    }
+
+    @Override
+    public void initComponent() {
+    }
+
+    @Override
+    public void disposeComponent() {
+    }
+
+    @NotNull
+    @Override
+    public String getComponentName() {
+        return getClass().getName();
+    }
+
+    public boolean isEnableOpenViews() {
+        return enableOpenViews;
+    }
+
+    public void setEnableOpenViews(boolean enableOpenViews) {
+        this.enableOpenViews = enableOpenViews;
     }
 }

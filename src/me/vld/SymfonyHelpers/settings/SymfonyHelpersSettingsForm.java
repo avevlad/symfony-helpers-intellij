@@ -1,8 +1,7 @@
 package me.vld.SymfonyHelpers.settings;
 
-import com.intellij.openapi.options.Configurable;
+import com.intellij.openapi.options.BaseConfigurable;
 import com.intellij.openapi.options.ConfigurationException;
-import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.Nullable;
 
@@ -11,23 +10,19 @@ import javax.swing.*;
 /**
  * @author AveVlad
  */
-public class SymfonyHelpersSettingsForm implements Configurable {
-    private Project project;
+public class SymfonyHelpersSettingsForm extends BaseConfigurable {
     private JPanel panel;
     private JCheckBox enableOpenViewsCheckBox;
-    private SymfonyHelpersSettings mySettings;
-
-    public SymfonyHelpersSettingsForm(SymfonyHelpersSettings settings) {
-        mySettings = settings;
-    }
 
     public SymfonyHelpersSettingsForm() {
         System.out.println("SymfonyHelpersSettingsForm");
+        SymfonyHelpersSettings settings = getSettings();
+        enableOpenViewsCheckBox.setSelected(settings.isEnableOpenViews());
     }
 
     @Nls
     @Override
-    public String getDisplayName() {    
+    public String getDisplayName() {
         return "Symfony Helpers";
     }
 
@@ -45,16 +40,14 @@ public class SymfonyHelpersSettingsForm implements Configurable {
 
     @Override
     public boolean isModified() {
-        System.out.println("isModified");
-        System.out.println(enableOpenViewsCheckBox);
-        System.out.println("===============");
-        return false;
+        SymfonyHelpersSettings settings = getSettings();
+        return enableOpenViewsCheckBox.isSelected() != settings.isEnableOpenViews();
     }
 
     @Override
     public void apply() throws ConfigurationException {
-        System.out.println("apply");
-
+        SymfonyHelpersSettings settings = getSettings();
+        settings.setEnableOpenViews(enableOpenViewsCheckBox.isSelected());
     }
 
     @Override
@@ -64,10 +57,10 @@ public class SymfonyHelpersSettingsForm implements Configurable {
 
     @Override
     public void disposeUIResources() {
-
+        enableOpenViewsCheckBox = null;
     }
 
     private SymfonyHelpersSettings getSettings() {
-        return SymfonyHelpersSettings.getInstance(project);
+        return SymfonyHelpersSettings.getInstance();
     }
 }
