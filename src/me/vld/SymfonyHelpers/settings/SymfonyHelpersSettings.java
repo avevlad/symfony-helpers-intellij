@@ -1,15 +1,14 @@
 package me.vld.SymfonyHelpers.settings;
 
-/**
- * @author AveVlad
- */
-
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.*;
 import com.intellij.util.xmlb.XmlSerializerUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * @author AveVlad
+ */
 @State(
         name = "SymfonyHelpersSettings",
         storages = {

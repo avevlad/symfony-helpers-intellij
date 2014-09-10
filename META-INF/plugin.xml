@@ -5,10 +5,10 @@
     <vendor email="dev@vld.me" url="http://github.com/">AveVlad</vendor>
 
     <description><![CDATA[
-          <p>
+        <p>
             Symfony helpers
-          </p>
-    ]]></description>
+        </p>
+        ]]></description>
 
     <change-notes><![CDATA[
           ...
@@ -34,6 +34,9 @@
     <application-components>
         <component>
             <implementation-class>me.vld.SymfonyHelpers.settings.SymfonyHelpersSettings</implementation-class>
+        </component>
+        <component>
+            <implementation-class>me.vld.SymfonyHelpers.SymfonyHelpersMain</implementation-class>
         </component>
     </application-components>
 
