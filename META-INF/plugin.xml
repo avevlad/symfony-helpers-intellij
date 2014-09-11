@@ -15,14 +15,9 @@
     ]]>
     </change-notes>
 
-    <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
-    <idea-version since-build="131"/>
+    <idea-version since-build="120"/>
 
-    <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
-         on how to target different products -->
-    <!-- uncomment to enable plugin in all products
     <depends>com.intellij.modules.lang</depends>
-    -->
 
     <extensions defaultExtensionNs="com.intellij">
         <projectConfigurable
@@ -35,13 +30,12 @@
         <component>
             <implementation-class>me.vld.SymfonyHelpers.settings.SymfonyHelpersSettings</implementation-class>
         </component>
-        <component>
-            <implementation-class>me.vld.SymfonyHelpers.SymfonyHelpersMain</implementation-class>
-        </component>
     </application-components>
 
     <project-components>
-        <!-- Add your project components here -->
+        <component>
+            <implementation-class>me.vld.SymfonyHelpers.SymfonyHelpersComponent</implementation-class>
+        </component>
     </project-components>
 
     <actions>
