@@ -1,17 +1,20 @@
 package me.vld.SymfonyHelpers;
 
+import com.intellij.openapi.project.Project;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author AveVlad
+ */
 public class SymfonyHelpersServer {
-    int port;
+    private int port;
 
     public SymfonyHelpersServer(int port) {
         this.port = port;
@@ -27,9 +30,11 @@ public class SymfonyHelpersServer {
 
     static class MyHandler implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {
-            String response = "true";
             Map<String, String> params = queryToMap(t.getRequestURI().getQuery());
-            String viewName = params.get("view");
+            String route = params.get("route");
+            String type = params.get("type");
+            SymfonyHelpersOpen.open(route, type);
+            String response = "true";
             t.sendResponseHeaders(200, response.length());
             OutputStream os = t.getResponseBody();
             os.write(response.getBytes());
@@ -48,6 +53,6 @@ public class SymfonyHelpersServer {
             }
             return result;
         }
-    }
 
+    }
 }
