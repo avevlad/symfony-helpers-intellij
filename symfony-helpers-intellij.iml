@@ -14,7 +14,7 @@
       <excludeFolder url="file://$MODULE_DIR$/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/build" />
     </content>
-    <orderEntry type="jdk" jdkName="IDEA IU-135.1230" jdkType="IDEA JDK" />
+    <orderEntry type="jdk" jdkName="IDEA PS-138.2071" jdkType="IDEA JDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

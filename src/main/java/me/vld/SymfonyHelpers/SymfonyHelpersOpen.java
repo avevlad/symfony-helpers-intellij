@@ -4,9 +4,8 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.scope.PsiScopeProcessor;
 
-public class SymfonyHelpersOpen implements PsiScopeProcessor.Event {
+public class SymfonyHelpersOpen {
     public static Project project;
     public static VirtualFile baseDir;
 
@@ -18,14 +17,16 @@ public class SymfonyHelpersOpen implements PsiScopeProcessor.Event {
     /**
      * @param route route
      */
-    public static void open(String route, String type) {
-//        if (type.equals("controller")) {
-//            System.out.println("controller controller");
-//        }
-//        if (type.equals("view")) {
-//            System.out.println("view view");
-//        }
-        VirtualFile file = baseDir.findFileByRelativePath("/rrr/1.txt");
+    public static void findFile(String route, String type) {
+        System.out.println(route + " route");
+        if (type.equals("controller")) {
+            System.out.println("controller controller");
+        }
+        if (type.equals("view")) {
+            System.out.println("view view");
+        }
+        VirtualFile file = baseDir.findFileByRelativePath(route);
+        System.out.println(file + " file");
         openFile(file);
     }
 
@@ -34,8 +35,11 @@ public class SymfonyHelpersOpen implements PsiScopeProcessor.Event {
             @Override
             public void run() {
                 if (file != null && file.isValid()) {
+                    System.out.println("open FileEditorManager");
                     FileEditorManager fileEditorManager = FileEditorManager.getInstance(project);
                     fileEditorManager.openFile(file, true);
+                    System.out.println("open FileEditorManager end");
+                    System.out.println("-----------------------------------------------");
                 }
             }
         });
