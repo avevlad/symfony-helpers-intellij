@@ -2,7 +2,7 @@
     <id>me.vld.SymfonyHelpers</id>
     <name>Symfony helpers</name>
     <version>1.0</version>
-    <vendor email="dev@vld.me" url="http://github.com/">AveVlad</vendor>
+    <vendor email="dev@vld.me" url="http://github.com/AveVlad">AveVlad</vendor>
 
     <description><![CDATA[
         <p>
@@ -21,8 +21,8 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <projectConfigurable
-                instance="me.vld.SymfonyHelpers.settings.SymfonyHelpersSettingsForm"
-                id="symfony.helpers.settings">
+                instance="me.vld.SymfonyHelpers.settings.SymfonyHelpersConfigurable"
+                id="symfony.helpers.configurable">
         </projectConfigurable>
     </extensions>
 
