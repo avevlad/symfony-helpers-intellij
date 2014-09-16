@@ -37,7 +37,7 @@ public class SymfonyHelpersOpen {
                 if (file != null && file.isValid()) {
                     System.out.println("open FileEditorManager");
                     FileEditorManager fileEditorManager = FileEditorManager.getInstance(project);
-                    fileEditorManager.openFile(file, true);
+                    fileEditorManager.openFile(file, true, true);
                     System.out.println("open FileEditorManager end");
                     System.out.println("-----------------------------------------------");
                 }
