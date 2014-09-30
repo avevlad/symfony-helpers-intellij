@@ -15,7 +15,6 @@ public class SymfonyHelpersComponent implements ProjectComponent {
 
     @SuppressWarnings("UnusedParameters")
     public SymfonyHelpersComponent(Project project) {
-        System.out.println("SymfonyHelpersComponent");
         this.project = project;
     }
 

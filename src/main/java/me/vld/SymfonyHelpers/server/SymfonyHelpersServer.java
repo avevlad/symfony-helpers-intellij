@@ -23,6 +23,7 @@ public class SymfonyHelpersServer {
 
     public void run() throws IOException {
         System.out.println("server run");
+        System.out.println("");
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
         server.createContext("/", new MyHandler());
         server.setExecutor(null);
