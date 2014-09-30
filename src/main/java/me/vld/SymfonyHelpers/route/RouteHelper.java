@@ -25,8 +25,7 @@ public class RouteHelper {
     }
 
     public static Map routesMap() throws IOException {
-        System.out.println("routesMap run");
-        System.out.println(routeName + " routeName");
+        System.out.println(routeName + " routeName -> routesMap run");
         VirtualFile file = baseDir.findFileByRelativePath("app/cache/dev/appDevUrlGenerator.php");
         if (file != null) {
             fileContent = VfsUtil.loadText(file);
@@ -37,17 +36,21 @@ public class RouteHelper {
             if (!matcher.group(2).matches("(.*)::(.*)")) {
                 continue;
             }
-//            System.out.println(matcher.group(1) + " - " + matcher.group(2));
             routesMap.put(matcher.group(1), matcher.group(2));
         }
+
         return routesMap;
     }
 
-    public String getFileAction() {
+    public String getFileAction() throws IOException {
         String path = String.valueOf(routesMap.get(routeName));
         String[] splitPath = path.split("::");
         String controller = "src/" + splitPath[0].replace("\\", "/") + ".php";
         String action = splitPath[1];
+        VirtualFile file = baseDir.findFileByRelativePath(controller);
+        if (file != null) {
+            System.out.println(VfsUtil.loadText(file));
+        }
 
         return controller;
     }
@@ -55,6 +58,10 @@ public class RouteHelper {
     public String getFileView() {
         System.out.println(routesMap);
         System.out.println(routesMap.get(routeName));
+        return "";
+    }
+
+    private String getStrokeNumber() {
         return "";
     }
 }

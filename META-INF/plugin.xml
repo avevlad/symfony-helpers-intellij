@@ -1,7 +1,7 @@
 <idea-plugin version="2">
     <id>me.vld.SymfonyHelpers</id>
     <name>Symfony helpers</name>
-    <version>1.0</version>
+    <version>1.1</version>
     <vendor email="dev@vld.me" url="http://github.com/AveVlad">AveVlad</vendor>
 
     <description><![CDATA[
