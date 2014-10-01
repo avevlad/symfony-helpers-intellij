@@ -49,7 +49,9 @@ public class RouteHelper {
         String action = splitPath[1];
         VirtualFile file = baseDir.findFileByRelativePath(controller);
         if (file != null) {
-            System.out.println(VfsUtil.loadText(file));
+            int[] lineInfo = getLineNumber(VfsUtil.loadText(file), action);
+            System.out.println(controller + " controller");
+            System.out.println(lineInfo + " lineInfo");
         }
 
         return controller;
@@ -61,7 +63,19 @@ public class RouteHelper {
         return "";
     }
 
-    private String getStrokeNumber() {
-        return "";
+    private int[] getLineNumber(String text, String actionName) {
+        String[] arr = text.split("\n");
+        int lineNumberIter = 0;
+        int lineNumber = 0;
+        int lineIndexOf = 0;
+        for (String s : arr) {
+            lineNumberIter++;
+            if (s.matches("(.*)contactAction(.*)")) {
+                lineIndexOf = s.indexOf("contactAction") + 1;
+                lineNumber = lineNumberIter;
+            }
+        }
+
+        return new int[]{lineNumber, lineIndexOf};
     }
 }
