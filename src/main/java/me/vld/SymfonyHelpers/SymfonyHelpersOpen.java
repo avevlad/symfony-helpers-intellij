@@ -1,7 +1,7 @@
 package me.vld.SymfonyHelpers;
 
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.fileEditor.FileEditorManager;
+import com.intellij.openapi.fileEditor.OpenFileDescriptor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import me.vld.SymfonyHelpers.route.RouteHelper;
@@ -25,31 +25,35 @@ public class SymfonyHelpersOpen {
     public static void findFile(String route, String routeType) throws IOException {
         System.out.println(route + " - route findFile");
         RouteHelper routeHelper = new RouteHelper(project, route);
-        String filename = null;
+        Object[] fileParams = null;
         if (routeType.equals("controller")) {
-            filename = routeHelper.getFileAction();
+            fileParams = routeHelper.getFileAction();
         }
         if (routeType.equals("view")) {
-            filename = routeHelper.getFileView();
+            String filename = routeHelper.getFileView();
         }
-        VirtualFile file;
-        if (filename != null) {
-            file = baseDir.findFileByRelativePath(filename);
-            System.out.println(file + " findFileByRelativePath");
-            openFile(file);
+        VirtualFile file = null;
+        System.out.println("fileParams start");
+        if (fileParams != null) {
+            System.out.println("fileParams end");
+            file = baseDir.findFileByRelativePath(String.valueOf(fileParams[0]));
+            int line = (Integer) fileParams[1];
+            int column = (Integer) fileParams[2];
+            openFile(file, line, column);
         }
     }
 
     /**
-     * @param file - VirtualFile
+     * @param file   - VirtualFile
+     * @param line   - file line
+     * @param column - file column
      */
-    public static void openFile(VirtualFile file) {
+    public static void openFile(VirtualFile file, int line, int column) {
         ApplicationManager.getApplication().invokeLater(new Runnable() {
             @Override
             public void run() {
                 if (file != null && file.isValid()) {
-                    FileEditorManager fileEditorManager = FileEditorManager.getInstance(project);
-                    fileEditorManager.openFile(file, true, true);
+                    new OpenFileDescriptor(project, file, line, column).navigate(true);
                 }
             }
         });

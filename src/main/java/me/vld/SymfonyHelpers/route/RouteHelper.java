@@ -42,19 +42,21 @@ public class RouteHelper {
         return routesMap;
     }
 
-    public String getFileAction() throws IOException {
+    public Object[] getFileAction() throws IOException {
         String path = String.valueOf(routesMap.get(routeName));
         String[] splitPath = path.split("::");
         String controller = "src/" + splitPath[0].replace("\\", "/") + ".php";
         String action = splitPath[1];
         VirtualFile file = baseDir.findFileByRelativePath(controller);
+        int[] lineInfo = new int[0];
         if (file != null) {
-            int[] lineInfo = getLineNumber(VfsUtil.loadText(file), action);
+            lineInfo = getLineInfo(VfsUtil.loadText(file), action);
             System.out.println(controller + " controller");
-            System.out.println(lineInfo + " lineInfo");
+            System.out.println(lineInfo[1] + " lineInfo");
+            System.out.println(lineInfo[0] + " lineInfo");
         }
 
-        return controller;
+        return new Object[]{controller, lineInfo[0], lineInfo[1]};
     }
 
     public String getFileView() {
@@ -63,19 +65,19 @@ public class RouteHelper {
         return "";
     }
 
-    private int[] getLineNumber(String text, String actionName) {
+    private int[] getLineInfo(String text, String actionName) {
         String[] arr = text.split("\n");
         int lineNumberIter = 0;
         int lineNumber = 0;
-        int lineIndexOf = 0;
+        int columnNumber = 0;
         for (String s : arr) {
-            lineNumberIter++;
-            if (s.matches("(.*)contactAction(.*)")) {
-                lineIndexOf = s.indexOf("contactAction") + 1;
+            if (s.matches("(.*)" + actionName + "(.*)")) {
+                columnNumber = s.indexOf(actionName) - 1;
                 lineNumber = lineNumberIter;
             }
+            lineNumberIter++;
         }
 
-        return new int[]{lineNumber, lineIndexOf};
+        return new int[]{lineNumber, columnNumber};
     }
 }
