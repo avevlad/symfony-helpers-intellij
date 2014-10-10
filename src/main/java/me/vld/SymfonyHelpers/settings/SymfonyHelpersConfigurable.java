@@ -23,7 +23,7 @@ public class SymfonyHelpersConfigurable extends BaseConfigurable {
     @Nls
     @Override
     public String getDisplayName() {
-        return "Symfony Helpers 123";
+        return "Symfony Helpers";
     }
 
     @Nullable

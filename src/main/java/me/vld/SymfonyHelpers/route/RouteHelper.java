@@ -72,7 +72,7 @@ public class RouteHelper {
         int columnNumber = 0;
         for (String s : arr) {
             if (s.matches("(.*)" + actionName + "(.*)")) {
-                columnNumber = s.indexOf(actionName) - 1;
+                columnNumber = s.indexOf(actionName);
                 lineNumber = lineNumberIter;
             }
             lineNumberIter++;
