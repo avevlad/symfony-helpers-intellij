@@ -48,7 +48,7 @@ public class SymfonyHelpersOpen {
      * @param line   - file line
      * @param column - file column
      */
-    public static void openFile(VirtualFile file, int line, int column) {
+    public static void openFile(final VirtualFile file, final int line, final int column) {
         ApplicationManager.getApplication().invokeLater(new Runnable() {
             @Override
             public void run() {
